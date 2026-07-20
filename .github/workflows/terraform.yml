@@ -70,7 +70,7 @@ jobs:
     name: Apply Infrastructure
     needs: plan
     if: success()
-    runs-on: [self-hosted, azureagent]
+    runs-on: azureagent
     steps:
       - name: Checkout
         uses: actions/checkout@v4
