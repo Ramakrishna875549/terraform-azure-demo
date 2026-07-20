@@ -5,5 +5,5 @@ variable "location" {
 }
 
 variable "resource_group_name" {
-  default = "aks-rg"
+  default = "github-rg"
 }
