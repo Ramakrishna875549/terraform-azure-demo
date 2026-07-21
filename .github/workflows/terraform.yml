@@ -1,20 +1,18 @@
 name: Terraform Pipeline
-
 on:
   pull_request:
     branches:
       - main
-
 env:
-  ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-  ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-  ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-  ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+  ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+  ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+  ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+  ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
   BACKEND_RESOURCE_GROUP: terraformstate-Gg
   BACKEND_STORAGE_ACCOUNT: tfstate12345678
   BACKEND_CONTAINER: tfstate
   BACKEND_KEY: aks.tfstate
-
+  
 jobs:
   # ==========================================================
   # Job 1 - Terraform Plan
@@ -22,7 +20,6 @@ jobs:
   plan:
     name: Terraform Plan
     runs-on: self-hosted
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -36,6 +33,13 @@ jobs:
         working-directory: ${{ github.workspace }}
         run: terraform version
 
+      - name: Debug secret presence
+        run: |
+          if [ -z "$ARM_CLIENT_ID" ]; then echo "ARM_CLIENT_ID is EMPTY"; else echo "ARM_CLIENT_ID is set"; fi
+          if [ -z "$ARM_CLIENT_SECRET" ]; then echo "ARM_CLIENT_SECRET is EMPTY"; else echo "ARM_CLIENT_SECRET is set"; fi
+          if [ -z "$ARM_TENANT_ID" ]; then echo "ARM_TENANT_ID is EMPTY"; else echo "ARM_TENANT_ID is set"; fi
+          if [ -z "$ARM_SUBSCRIPTION_ID" ]; then echo "ARM_SUBSCRIPTION_ID is EMPTY"; else echo "ARM_SUBSCRIPTION_ID is set"; fi
+
       - name: Terraform Init
         working-directory: ${{ github.workspace }}
         run: |
@@ -43,7 +47,7 @@ jobs:
             -backend-config="resource_group_name=${BACKEND_RESOURCE_GROUP}" \
             -backend-config="storage_account_name=${BACKEND_STORAGE_ACCOUNT}" \
             -backend-config="container_name=${BACKEND_CONTAINER}" \
-            -backend-config="key=${BACKEND_KEY}"
+            -backend-config="key=${BACKEND_KEY}" \
             -backend-config="client_id=${ARM_CLIENT_ID}" \
             -backend-config="client_secret=${ARM_CLIENT_SECRET}" \
             -backend-config="tenant_id=${ARM_TENANT_ID}" \
@@ -71,8 +75,7 @@ jobs:
     name: Apply Infrastructure
     needs: plan
     if: success()
-    runs-on: [self-hosted, azureagent]
-
+    runs-on: self-hosted
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -99,7 +102,11 @@ jobs:
             -backend-config="resource_group_name=${BACKEND_RESOURCE_GROUP}" \
             -backend-config="storage_account_name=${BACKEND_STORAGE_ACCOUNT}" \
             -backend-config="container_name=${BACKEND_CONTAINER}" \
-            -backend-config="key=${BACKEND_KEY}"
+            -backend-config="key=${BACKEND_KEY}" \
+            -backend-config="client_id=${ARM_CLIENT_ID}" \
+            -backend-config="client_secret=${ARM_CLIENT_SECRET}" \
+            -backend-config="tenant_id=${ARM_TENANT_ID}" \
+            -backend-config="subscription_id=${ARM_SUBSCRIPTION_ID}"
 
       - name: Terraform Apply
         working-directory: ${{ github.workspace }}
