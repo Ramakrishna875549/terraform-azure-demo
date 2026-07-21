@@ -4,14 +4,15 @@ on:
     branches:
       - main
 env:
-  ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-  ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-  ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-  ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+  ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+  ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+  ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+  ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
   BACKEND_RESOURCE_GROUP: terraformstate-Gg
   BACKEND_STORAGE_ACCOUNT: tfstate12345678
   BACKEND_CONTAINER: tfstate
   BACKEND_KEY: aks.tfstate
+  
 jobs:
   # ==========================================================
   # Job 1 - Terraform Plan
