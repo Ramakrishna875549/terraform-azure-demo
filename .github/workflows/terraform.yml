@@ -12,7 +12,7 @@ env:
   BACKEND_STORAGE_ACCOUNT: tfstate12345678
   BACKEND_CONTAINER: tfstate
   BACKEND_KEY: aks.tfstate
-  
+
 jobs:
   # ==========================================================
   # Job 1 - Terraform Plan
@@ -69,13 +69,14 @@ jobs:
           retention-days: 5
 
   # ==========================================================
-  # Job 2 - Terraform Apply
+  # Job 2 - Terraform Apply (requires manual approval)
   # ==========================================================
   apply:
     name: Apply Infrastructure
     needs: plan
-    if: success()
     runs-on: self-hosted
+    environment:
+      name: production-apply
     steps:
       - name: Checkout
         uses: actions/checkout@v4
