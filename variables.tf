@@ -65,7 +65,7 @@ variable "shir_vm_name" {
 variable "shir_vm_size" {
   description = "VM size - Standard_D4s_v5 (4 vCPU, 16GB RAM) recommended for production SHIR"
   type        = string
-  default     = "Standard_D4s_v5"
+  default     = "Standard_D2s_v5" 
 }
 
 variable "shir_admin_username" {
