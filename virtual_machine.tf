@@ -1,3 +1,11 @@
+resource "azurerm_subnet" "subnet" {
+  for_each             = var.subnets
+  name                 = each.key
+  resource_group_name  = azurerm_resource_group.rg.name
+  virtual_network_name = azurerm_virtual_network.vnet.name
+  address_prefixes     = [each.value]
+}
+
 # shir-vm.tf
 resource "azurerm_network_interface" "shir_nic" {
   name                = "${var.shir_vm_name}-nic"
