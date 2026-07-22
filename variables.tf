@@ -21,7 +21,7 @@ variable "vnet_address_space" {
 }
 
 variable "adf_name" {
-  description = "Name of the Azure Data Factory"
+  description = "Base name of the Azure Data Factory (a unique suffix will be appended)"
   type        = string
   default     = "adf-project"
 }
