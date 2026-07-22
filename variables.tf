@@ -49,3 +49,9 @@ variable "adf_github_config" {
   })
   default = null
 }
+
+variable "shir_name" {
+  description = "Name of the self-hosted integration runtime"
+  type        = string
+  default     = "shir-onprem"
+}
