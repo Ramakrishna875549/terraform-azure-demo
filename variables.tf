@@ -79,5 +79,12 @@ variable "shir_admin_password" {
   type        = string
   sensitive   = true
 }
-
+variable "subnets" {
+  description = "Map of subnet names to their address prefixes"
+  type        = map(string)
+  default = {
+    aks-subnet     = "10.0.1.0/24"
+    private-subnet = "10.0.2.0/24"
+  }
+}
 
