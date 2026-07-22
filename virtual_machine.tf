@@ -23,7 +23,7 @@ resource "azurerm_network_interface" "shir_nic" {
 
 resource "azurerm_windows_virtual_machine" "shir_vm" {
   name                = var.shir_vm_name
-  location            = "West US"
+  location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   size                = var.shir_vm_size
   admin_username      = var.shir_admin_username
