@@ -55,3 +55,32 @@ variable "shir_name" {
   type        = string
   default     = "shir-onprem"
 }
+# variables.tf (additions)
+variable "shir_vm_name" {
+  description = "Name of the VM hosting the self-hosted integration runtime"
+  type        = string
+  default     = "vm-shir-01"
+}
+
+variable "shir_vm_size" {
+  description = "VM size - Standard_D4s_v5 (4 vCPU, 16GB RAM) recommended for production SHIR"
+  type        = string
+  default     = "Standard_D4s_v5"
+}
+
+variable "shir_admin_username" {
+  description = "Admin username for the VM"
+  type        = string
+  default     = "shiradmin"
+}
+
+variable "shir_admin_password" {
+  description = "Admin password for the VM - pass via TF_VAR or secret, do not hardcode"
+  type        = string
+  sensitive   = true
+}
+
+variable "shir_subnet_id" {
+  description = "Subnet ID where the VM will be deployed (e.g. from your VNet)"
+  type        = string
+}
