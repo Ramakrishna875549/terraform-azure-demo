@@ -6,7 +6,7 @@ resource "azurerm_network_interface" "shir_nic" {
 
   ip_configuration {
     name                          = "internal"
-    subnet_id                     = var.shir_subnet_id
+    subnet_id                     = azurerm_subnet.subnet["aks-subnet"].id
     private_ip_address_allocation = "Dynamic"
   }
 
