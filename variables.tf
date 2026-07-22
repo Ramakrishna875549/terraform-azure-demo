@@ -63,9 +63,9 @@ variable "shir_vm_name" {
 }
 
 variable "shir_vm_size" {
-  description = "VM size for SHIR VM"
+  description = "VM size for SHIR VM - DSv2 family"
   type        = string
-  default     = "Standard_D2as_v5"   # AMD-based, often more available
+  default     = "Standard_DS2_v2"  # 2 vCPU, 7GB RAM - meets SHIR minimum spec
 }
 
 variable "shir_admin_username" {
