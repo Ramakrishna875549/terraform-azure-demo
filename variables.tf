@@ -80,8 +80,4 @@ variable "shir_admin_password" {
   sensitive   = true
 }
 
-variable "shir_subnet_id" {
-  description = "Subnet ID where the VM will be deployed (e.g. from your VNet)"
-  type        = string
-  default     = "10.0.1.0/24"
-}
+
