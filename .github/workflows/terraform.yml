@@ -33,12 +33,6 @@ jobs:
         working-directory: ${{ github.workspace }}
         run: terraform version
 
-      - name: Debug secret presence
-        run: |
-          if [ -z "$ARM_CLIENT_ID" ]; then echo "ARM_CLIENT_ID is EMPTY"; else echo "ARM_CLIENT_ID is set"; fi
-          if [ -z "$ARM_CLIENT_SECRET" ]; then echo "ARM_CLIENT_SECRET is EMPTY"; else echo "ARM_CLIENT_SECRET is set"; fi
-          if [ -z "$ARM_TENANT_ID" ]; then echo "ARM_TENANT_ID is EMPTY"; else echo "ARM_TENANT_ID is set"; fi
-          if [ -z "$ARM_SUBSCRIPTION_ID" ]; then echo "ARM_SUBSCRIPTION_ID is EMPTY"; else echo "ARM_SUBSCRIPTION_ID is set"; fi
 
       - name: Terraform Init
         working-directory: ${{ github.workspace }}
