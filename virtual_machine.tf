@@ -28,6 +28,7 @@ resource "azurerm_windows_virtual_machine" "shir_vm" {
   size                = var.shir_vm_size
   admin_username      = var.shir_admin_username
   admin_password      = var.shir_admin_password
+   zone = "2"
 
   network_interface_ids = [
     azurerm_network_interface.shir_nic.id,
