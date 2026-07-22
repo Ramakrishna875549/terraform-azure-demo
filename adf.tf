@@ -1,6 +1,11 @@
 # adf.tf
+resource "random_string" "adf_suffix" {
+  length  = 6
+  special = false
+  upper   = false
+}
 resource "azurerm_data_factory" "adf" {
-  name                            = var.adf_name
+  name                            = "${var.adf_name}-${random_string.adf_suffix.result}"
   location                        = azurerm_resource_group.rg.location
   resource_group_name             = azurerm_resource_group.rg.name
   managed_virtual_network_enabled = var.adf_managed_vnet_enabled
