@@ -87,9 +87,5 @@ variable "subnets" {
     private-subnet = "10.0.2.0/24"
   }
 }
-# variables.tf
-variable "my_public_ip" {
-  description = "Your public IP for RDP access, in CIDR format e.g. 203.0.113.42/32"
-  type        = string
-}
+
 
