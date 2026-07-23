@@ -76,7 +76,7 @@ security_rule {
   protocol                   = "Tcp"
   source_port_range          = "*"
   destination_port_range     = "3389"
-  source_address_prefix      = var.my_public_ip
+  source_address_prefix      = "${chomp(data.http.my_ip.response_body)}/32"
   destination_address_prefix = "*"
 }
 
