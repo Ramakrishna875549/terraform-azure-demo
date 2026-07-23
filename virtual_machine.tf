@@ -69,9 +69,9 @@ resource "azurerm_network_security_group" "shir_nsg" {
   resource_group_name = azurerm_resource_group.rg.name
 
 security_rule {
-  name                       = "AllowRDPFromMyIP"
+  name                       = "AllowOutboundHTTPS"
   priority                   = 100
-  direction                  = "Inbound"
+  direction                  = "Outbound"
   access                     = "Allow"
   protocol                   = "Tcp"
   source_port_range          = "*"
