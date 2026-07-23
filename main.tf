@@ -12,6 +12,10 @@ random = {
     }
   
   }
+http = {
+      source  = "hashicorp/http"
+      version = "~> 3.4"
+    }
 }
 
 provider "azurerm" {
