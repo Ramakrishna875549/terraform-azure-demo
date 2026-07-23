@@ -76,7 +76,7 @@ security_rule {
   protocol                   = "Tcp"
   source_port_range          = "*"
   destination_port_range     = "3389"
-  source_address_prefix      = "<YOUR_PUBLIC_IP>/32"
+  source_address_prefix      = var.my_public_ip
   destination_address_prefix = "*"
 }
 
