@@ -76,7 +76,7 @@ resource "azurerm_network_security_group" "shir_nsg" {
     protocol                   = "Tcp"
     source_port_range          = "*"
     destination_port_range     = "3389"
-    source_address_prefix      = 49.207.55.235
+    source_address_prefix      = "49.207.55.235"
     destination_address_prefix = "*"
   }
 
