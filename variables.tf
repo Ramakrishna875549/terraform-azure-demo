@@ -55,3 +55,37 @@ variable "shir_name" {
   type        = string
   default     = "shir-onprem"
 }
+# variables.tf (additions)
+variable "shir_vm_name" {
+  description = "Name of the VM hosting the self-hosted integration runtime"
+  type        = string
+  default     = "vm-shir-01"
+}
+
+variable "shir_vm_size" {
+  description = "VM size for SHIR VM - DSv2 family"
+  type        = string
+  default     = "Standard_D2als_V7"  # 2 vCPU, 7GB RAM - meets SHIR minimum spec
+}
+
+variable "shir_admin_username" {
+  description = "Admin username for the VM"
+  type        = string
+  default     = "shiradmin"
+}
+
+variable "shir_admin_password" {
+  description = "Admin password for the VM - pass via TF_VAR or secret, do not hardcode"
+  type        = string
+  sensitive   = true
+}
+variable "subnets" {
+  description = "Map of subnet names to their address prefixes"
+  type        = map(string)
+  default = {
+    aks-subnet     = "10.0.1.0/24"
+    private-subnet = "10.0.2.0/24"
+  }
+}
+
+

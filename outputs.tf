@@ -30,3 +30,11 @@ output "shir_auth_key_secondary" {
   value       = azurerm_data_factory_integration_runtime_self_hosted.shir.secondary_authorization_key
   sensitive   = true
 }
+
+output "shir_vm_id" {
+  value = azurerm_windows_virtual_machine.shir_vm.id
+}
+
+output "shir_vm_private_ip" {
+  value = azurerm_network_interface.shir_nic.private_ip_address
+}
