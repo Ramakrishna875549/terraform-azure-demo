@@ -1,3 +1,11 @@
+resource "azurerm_public_ip" "shir_pip" {
+  name                = "${var.shir_vm_name}-pip"
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+  allocation_method   = "Static"
+  sku                 = "Standard"
+ }
+
 resource "azurerm_subnet" "subnet" {
   for_each             = var.subnets
   name                 = each.key
@@ -16,6 +24,7 @@ resource "azurerm_network_interface" "shir_nic" {
     name                          = "internal"
     subnet_id                     = azurerm_subnet.subnet["aks-subnet"].id
     private_ip_address_allocation = "Dynamic"
+    public_ip_address_id          = azurerm_public_ip.shir_pip.id
   }
 
 
@@ -59,9 +68,21 @@ resource "azurerm_network_security_group" "shir_nsg" {
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
 
+security_rule {
+  name                       = "AllowRDPFromMyIP"
+  priority                   = 100
+  direction                  = "Inbound"
+  access                     = "Allow"
+  protocol                   = "Tcp"
+  source_port_range          = "*"
+  destination_port_range     = "3389"
+  source_address_prefix      = "<YOUR_PUBLIC_IP>/32"
+  destination_address_prefix = "*"
+}
+
   security_rule {
     name                       = "AllowOutboundHTTPS"
-    priority                   = 100
+    priority                   = 200
     direction                  = "Outbound"
     access                     = "Allow"
     protocol                   = "Tcp"
